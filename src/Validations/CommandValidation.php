@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Validations;
 
 class CommandValidation
@@ -21,6 +23,21 @@ class CommandValidation
         $this->num = (int) $argv[1];
         $this->checkNum();
         $this->time = (int) $argv[2];
+    }
+
+    public function getNum(): int
+    {
+        return $this->num;
+    }
+
+    public function getTime(): int
+    {
+        return $this->num;
+    }
+
+    public function getCommand(): string
+    {
+        return $this->command;
     }
 
     public function toArray(): array

@@ -7,15 +7,19 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 ini_set('max_execution_time', '-1');
 
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/predis/predis/autoload.php';
+
 use App\Controllers\Controller;
 use App\Validations\CommandValidation;
+use Predis\Autoloader;
 
-require_once __DIR__ . '/vendor/autoload.php';
-
+Autoloader::register();
 
 try {
-    $data = (new CommandValidation($argv, $commands))->toArray();
-    var_dump($data);die;
+    $data = (new CommandValidation($argv));
+    $controller = new Controller($data->getCommand());
+    var_dump($controller->actionFibonacci($data->getNum(), $data->getTime()));die;
 } catch(\Exception $e) {
     echo $e->getMessage();
 }
